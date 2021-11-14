@@ -1,0 +1,15 @@
+.menu{
+    padding: 1rem 0px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.badge{
+    padding: .6rem 1rem;
+    border-radius: 25px;
+    margin-left: .8rem;
+    cursor: pointer;
+    &:first-child{
+        margin-left: 0px;
+    }
+}
