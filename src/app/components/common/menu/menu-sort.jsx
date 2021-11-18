@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { connect } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import {
   Dropdown,
@@ -11,13 +11,23 @@ import {
 import { sort } from "./constant";
 import { setCategory } from "../../../../redux/actions/filter-actions"
 
-const MenuSort = ({ category, setActiveCategory }) => {
+const MenuSort = () => {
 
+  const dispatch = useDispatch()
+
+  const [activeCategory, setActiveCategory] = useState('popular')
   const [isShowSort, setShowSort] = useState(false);
 
   const toggleSort = () => setShowSort((prev) => !prev);
 
-  const getActiveCatrgory = () => sort.find(cat => cat.value === category).title
+  const onSelectAtiveCategory = (value) => {
+    dispatch(setCategory(value))
+    setActiveCategory(value)
+  }
+
+  const getActiveCatrgory = () => sort.find(cat => cat.value === activeCategory).title
+
+  console.log('RENDER SORT')
 
   return (
     <Dropdown isOpen={isShowSort} toggle={toggleSort}>
@@ -26,8 +36,8 @@ const MenuSort = ({ category, setActiveCategory }) => {
         {sort.map(({ title, id, value }) => (
           <DropdownItem
             key={id}
-            onClick={() => setActiveCategory(value)}
-            active={value === category ? true : false}
+            onClick={() => onSelectAtiveCategory(value)}
+            active={value === activeCategory}
           >
             {title}
           </DropdownItem>
@@ -37,16 +47,4 @@ const MenuSort = ({ category, setActiveCategory }) => {
   );
 };
 
-const mapDispathToProps = (dispatch) => {
-  return{
-    setActiveCategory: (category) => dispatch(setCategory(category))
-  }
-}
-
-const mapStateToProps = (state) => {
-  return{
-    category: state.activeSort
-  }
-}
-
-export default connect(mapStateToProps, mapDispathToProps)(MenuSort);
+export default React.memo(MenuSort);

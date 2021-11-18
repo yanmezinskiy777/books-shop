@@ -1,0 +1,1 @@
+export const booksActionTypes = { GET_BOOKS: 'GET_BOOKS' }

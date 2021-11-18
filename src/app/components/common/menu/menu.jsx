@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux"
 import { Row, Col, Badge } from "reactstrap";
-import { connect } from "react-redux";
 
 import { menu } from "./constant";
 import MenuSort from "./menu-sort";
@@ -8,10 +8,18 @@ import { setFilter } from "../../../../redux/actions/filter-actions";
 
 import style from "./menu.module.scss";
 
-const Menu = ({ filter, setFilter }) => {
-  const setSelectActive = (value) => setFilter(value);
+const Menu = () => {
 
-  console.log(filter);
+  const dispath = useDispatch()
+
+  const [activeFilter, setActiveFilter] = useState('all')
+
+  const setSelectActive = (value) => {
+    setActiveFilter(value)
+    dispath(setFilter(value))
+  };
+
+  console.log("RENDER MENU");
 
   return (
     <Row>
@@ -20,13 +28,13 @@ const Menu = ({ filter, setFilter }) => {
           {menu.map((item) => {
             return (
               <Badge
-              key={item.id}
-              onClick={() => setSelectActive(item.value)}
-              color={filter === item.value ? "dark" : "secondary"}
-              className={style.badge}
-            >
-              {item.title}
-            </Badge>
+                key={item.id}
+                onClick={() => setSelectActive(item.value)}
+                color={activeFilter === item.value ? "dark" : "secondary"}
+                className={style.badge}
+              >
+                {item.title}
+              </Badge>
             );
           })}
         </div>
@@ -36,16 +44,5 @@ const Menu = ({ filter, setFilter }) => {
   );
 };
 
-const mapDispathToProps = (dispath) => {
-  return {
-    setFilter: (filter) => dispath(setFilter(filter)),
-  };
-};
 
-const mapStateToProps = (state) => {
-  return {
-    filter: state.activeFilter,
-  };
-};
-
-export default connect(mapStateToProps, mapDispathToProps)(Menu);
+export default Menu;

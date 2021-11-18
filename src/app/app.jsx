@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux"
 import {
   Routes,
   Route,
@@ -11,19 +12,24 @@ import { Cart } from "./components/pages"
 
 import { api } from "./api"
 import { booksNormalization } from "./utils"
+import { getBooks } from "../redux/actions/books-actions"
 
 import style from "./styles/app.module.scss";
 
 const App = () => {
 
-  const [books, setBooks] = useState([])
+  const dispath = useDispatch()
+
+  const books = useSelector(({ books }) =>  books.books)
 
   useEffect(() => {
-    const getBooks = async () => {
+    const fetchBooks = async () => {
       const result = await api({ type: 'books' })
-      setBooks(booksNormalization(result))
+      dispath(getBooks((booksNormalization(result))))
+      console.log('FETCHING')
     }
-    getBooks()
+    fetchBooks()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
   return (
