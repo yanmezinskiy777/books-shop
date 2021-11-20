@@ -11,21 +11,19 @@ import {
 import { sort } from "./constant";
 import { setCategory } from "../../../../redux/actions/filter-actions"
 
-const MenuSort = () => {
+const MenuSort = ({ activeSort }) => {
 
   const dispatch = useDispatch()
 
-  const [activeCategory, setActiveCategory] = useState('popular')
   const [isShowSort, setShowSort] = useState(false);
 
   const toggleSort = () => setShowSort((prev) => !prev);
 
   const onSelectAtiveCategory = (value) => {
     dispatch(setCategory(value))
-    setActiveCategory(value)
   }
 
-  const getActiveCatrgory = () => sort.find(cat => cat.value === activeCategory).title
+  const getActiveCatrgory = () => sort.find(cat => cat.value === activeSort).title
 
   console.log('RENDER SORT')
 
@@ -37,7 +35,7 @@ const MenuSort = () => {
           <DropdownItem
             key={id}
             onClick={() => onSelectAtiveCategory(value)}
-            active={value === activeCategory}
+            active={value === activeSort}
           >
             {title}
           </DropdownItem>

@@ -11,7 +11,7 @@ import style from './header.module.scss'
 
 import { FaBook } from 'react-icons/fa';
 
-const Header = () => {
+const Header = ({ totalPrice, totalItems }) => {
   return (
     <Navbar className={style.wrapper} color="light" expand="md" light>
       <Link to="/"><NavbarBrand><FaBook /> Books shop</NavbarBrand></Link>
@@ -19,7 +19,7 @@ const Header = () => {
       <Collapse navbar>
         <Nav className="me-auto" navbar>
         </Nav>
-        <Link to="/cart">Cart</Link>
+        <Link to="/cart">Price: {totalPrice} Total: {totalItems}</Link>
       </Collapse>
     </Navbar>
   );

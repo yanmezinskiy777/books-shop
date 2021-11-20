@@ -6,16 +6,29 @@ import {
   CardSubtitle,
   CardTitle,
   CardText,
+  CardFooter,
   ButtonGroup,
   Button,
 } from "reactstrap";
 
-import style from "./book-list.module.scss";
+import style from "../book-list.module.scss";
 
-const BookCard = ({ title, author, imageUrl, price, type, pages }) => {
-  const types = ["твердая", "мягкая"];
+const types = ["твердая", "мягкая"];
 
+const BookCard = ({ title, author, imageUrl, price, type, pages, id, onAddbook }) => {
+ 
   const [activeType, setActiveType] = useState(type[0]);
+
+  const addBookToCart = () => {
+    const book = {
+      id,
+      title,
+      imageUrl,
+      price,
+      type: types[activeType]
+    }
+    onAddbook(book)
+  }
 
   return (
     <Card>
@@ -37,7 +50,7 @@ const BookCard = ({ title, author, imageUrl, price, type, pages }) => {
           {types.map((item, i) => (
             <Button
               active={activeType === i}
-              disabled={!type.includes(i) ? true : false}
+              disabled={!type.includes(i)}
               key={i}
               onClick={() => setActiveType(i)}
             >
@@ -47,6 +60,9 @@ const BookCard = ({ title, author, imageUrl, price, type, pages }) => {
         </ButtonGroup>
         <CardText className="mt-2">{pages} pages</CardText>
       </CardBody>
+      <CardFooter>
+        <Button onClick={addBookToCart}>добавить</Button>
+      </CardFooter>
     </Card>
   );
 };

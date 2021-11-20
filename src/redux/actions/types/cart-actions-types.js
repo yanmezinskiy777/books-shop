@@ -1,0 +1,1 @@
+export const cartActionsTypes = { ADD_BOOK_TO_CART :'ADD_BOOK_TO_CART' }

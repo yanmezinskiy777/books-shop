@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux"
 import { Row, Col, Badge } from "reactstrap";
 
@@ -8,14 +8,11 @@ import { setFilter } from "../../../../redux/actions/filter-actions";
 
 import style from "./menu.module.scss";
 
-const Menu = () => {
+const Menu = ({ activeFilter, activeSort }) => {
 
   const dispath = useDispatch()
 
-  const [activeFilter, setActiveFilter] = useState('all')
-
   const setSelectActive = (value) => {
-    setActiveFilter(value)
     dispath(setFilter(value))
   };
 
@@ -38,7 +35,7 @@ const Menu = () => {
             );
           })}
         </div>
-        <MenuSort />
+        <MenuSort activeSort={activeSort} />
       </Col>
     </Row>
   );

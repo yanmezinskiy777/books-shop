@@ -2,7 +2,7 @@ import { booksActionTypes } from "../actions/books-action-types"
 
 export const initialBooks = {
     books: [],
-    loading: false
+    loaded: false 
 }
 
 export const booksReducer = (state = initialBooks, action) => {
@@ -10,7 +10,8 @@ export const booksReducer = (state = initialBooks, action) => {
         case  booksActionTypes.GET_BOOKS:
             return{
                 ...state,
-                books: action.payload
+                books: action.payload,
+                loaded: true
             }
         default:
             return state
