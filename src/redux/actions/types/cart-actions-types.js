@@ -1,1 +1,5 @@
-export const cartActionsTypes = { ADD_BOOK_TO_CART :'ADD_BOOK_TO_CART' }
+export const cartActionsTypes = {
+  ADD_BOOK_TO_CART: "ADD_BOOK_TO_CART",
+  CLEAR_CART: "CLEAR_CART",
+  DELETE_ONE_BOOK: "DELETE_ONE_BOOK",
+};

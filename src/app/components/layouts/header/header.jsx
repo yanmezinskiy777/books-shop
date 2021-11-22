@@ -1,25 +1,27 @@
 import React from "react";
-import { Link } from 'react-router-dom';
-import {
-  Navbar,
-  NavbarBrand,
-  NavbarToggler,
-  Collapse,
-  Nav,
-} from "reactstrap";
-import style from './header.module.scss'
+import { Link } from "react-router-dom";
+import { Navbar, NavbarBrand, NavbarToggler, Collapse, Nav } from "reactstrap";
+import style from "./header.module.scss";
 
-import { FaBook } from 'react-icons/fa';
+import { FaBook, FaShoppingCart } from "react-icons/fa";
 
 const Header = ({ totalPrice, totalItems }) => {
   return (
     <Navbar className={style.wrapper} color="light" expand="md" light>
-      <Link to="/"><NavbarBrand><FaBook /> Books shop</NavbarBrand></Link>
+      <Link to="/">
+        <NavbarBrand>
+          <FaBook /> Books shop
+        </NavbarBrand>
+      </Link>
       <NavbarToggler onClick={function noRefCheck() {}} />
       <Collapse navbar>
-        <Nav className="me-auto" navbar>
-        </Nav>
-        <Link to="/cart">Price: {totalPrice} Total: {totalItems}</Link>
+        <Nav className="me-auto" navbar></Nav>
+        <Link className={`${style.cart} btn btn-primary`} to="/cart">
+          Price: {totalPrice} Total: {totalItems}
+          <span>
+            <FaShoppingCart />
+          </span>
+        </Link>
       </Collapse>
     </Navbar>
   );
